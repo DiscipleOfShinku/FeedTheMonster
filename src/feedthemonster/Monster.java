@@ -8,6 +8,7 @@ public class Monster {
 	private String name;
 	private Integer level;
 	private Date birthday;
+	private String picture;
 	
 	public void setId(Integer id) {
 		this.id = id;
@@ -39,6 +40,14 @@ public class Monster {
 	
 	public Date getBirthday() {
 		return birthday;
+	}
+
+	public void setPicture(Integer id) {
+		this.picture = "/resources/images/" + id + ".png";
+	}
+
+	public String getPicture() {
+		return picture;
 	}
 
 }

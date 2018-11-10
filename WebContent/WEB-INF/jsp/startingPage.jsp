@@ -40,12 +40,14 @@ Choose monster to feed:
 		<th>Monster name:</th>
 		<th>Monster birthday:</th>
 		<th>Monster level:</th>
+		<th>Portrait:</th>
 	</tr>
 	<c:forEach items="${monstersList}" var="monster">
 		<tr>
 			<td><c:out value="${monster.getName()}"/></td>
 			<td><c:out value="${monster.getBirthday()}"/></td>
 			<td><c:out value="${monster.getLevel()}"/></td>
+			<td><img src="<c:url value="${monster.getPicture()}"/>"alt="Portrait" /></td>
 		</tr>
 	</c:forEach>
 </table>
