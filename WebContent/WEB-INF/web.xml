@@ -7,14 +7,6 @@
 
     <display-name>Feed the monster application</display-name>
 
-    <!-- Configuration files -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/spring/*.xml
-		</param-value>
-	</context-param>
-
 	<!-- Allow Unicode -->
 	<jsp-config>
     	<jsp-property-group>
