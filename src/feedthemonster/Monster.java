@@ -1,53 +1,89 @@
 package feedthemonster;
 
-import java.sql.Date;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-public class Monster {
-	
-	private Integer id;
-	private String name;
-	private Integer level;
-	private Date birthday;
-	private String picture;
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
-	public void setLevel(Integer level) {
-		this.level = level;
-	}
-	
-	public Integer getLevel() {
-		return level;
-	}
-	
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	
-	public Date getBirthday() {
-		return birthday;
-	}
+@Entity
+@Table
+public class Monster
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	public void setPicture(Integer id) {
-		this.picture = "/resources/images/" + id + ".png";
-	}
+    private String name;
 
-	public String getPicture() {
-		return picture;
-	}
+    private Integer level;
 
+    @Temporal(TemporalType.DATE)
+    private Date birthday;
+
+    public Monster()
+    {
+        // this form used by Hibernate
+    }
+
+    public Monster(String name, Integer level, Date birthday)
+    {
+        // for application use
+        this.name = name;
+        this.level = level;
+        this.birthday = birthday;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setLevel(Integer level)
+    {
+        this.level = level;
+    }
+
+    public Integer getLevel()
+    {
+        return level;
+    }
+
+    public void setBirthday(Date birthday)
+    {
+        this.birthday = birthday;
+    }
+
+    public Date getBirthday()
+    {
+        return birthday;
+    }
+
+    public String getPicture()
+    {
+        return "/resources/images/" + this.id + ".png";
+    }
+
+    public void incrementLevel()
+    {
+        this.level++;
+    }
 }
