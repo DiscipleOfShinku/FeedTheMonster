@@ -97,11 +97,11 @@ public class FTMController
     }
 
     @RequestMapping(value = "/feeding", method = RequestMethod.POST)
-    public String feeding(@ModelAttribute("choosenMonster") @Validated Monster choosenMonster,
+    public String feeding(@ModelAttribute("choosenMonster") @Validated Select select,
             BindingResult result, Model model,
             final RedirectAttributes redirectAttributes)
     {
-        dropDownBoxValidator.validate(choosenMonster, result);
+        dropDownBoxValidator.validate(select, result);
         if (result.hasErrors())
         {
             entityManager = entityManagerFactory.createEntityManager();
@@ -118,7 +118,7 @@ public class FTMController
         {
             entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
-            Monster monster = entityManager.createQuery("from Monster where id = '" + choosenMonster.getId() + "'",
+            Monster monster = entityManager.createQuery("from Monster where id = '" + select.getId() + "'",
                                                         Monster.class)
                                            .getSingleResult();
             monster.incrementLevel();
