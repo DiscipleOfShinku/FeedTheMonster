@@ -19,8 +19,8 @@ public class DropDownBoxValidator implements Validator {
 
 		Monster monster = (Monster) target;
 
-		if("NONE".equals(monster.getName())) {
-			errors.rejectValue("name", "required.name", "[Message wasn't found.] Please, select your monster.");
+		if(monster.getId() < 1) {
+			errors.rejectValue("id", "required.id", "[Message wasn't found.] Please, select your monster.");
 		}
 	}
 }

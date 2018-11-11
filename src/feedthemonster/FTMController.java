@@ -36,12 +36,10 @@ public class FTMController
         entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
         List<Monster> monsters = entityManager.createQuery("from Monster", Monster.class).getResultList();
-        List<String> monsterNames = entityManager.createQuery("select name from Monster", String.class).getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
 
         ModelAndView modelAndView = new ModelAndView("startingPage", "monstersList", monsters);
-        modelAndView.addObject("monsterNames", monsterNames);
 
         return modelAndView;
     }
@@ -57,13 +55,10 @@ public class FTMController
             entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             List<Monster> monsters = entityManager.createQuery("from Monster", Monster.class).getResultList();
-            List<String> monsterNames = entityManager.createQuery("select name from Monster", String.class)
-                                                     .getResultList();
             entityManager.getTransaction().commit();
             entityManager.close();
 
             model.addAttribute("monstersList", monsters);
-            model.addAttribute("monsterNames", monsterNames);
 
             return "/startingPage";
 
@@ -71,7 +66,7 @@ public class FTMController
         {
             entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
-            Monster monster = entityManager.createQuery("from Monster where name = '" + choosenMonster.getName() + "'",
+            Monster monster = entityManager.createQuery("from Monster where id = '" + choosenMonster.getId() + "'",
                                                         Monster.class)
                                            .getSingleResult();
             monster.incrementLevel();

@@ -28,12 +28,13 @@ Choose monster to feed:
 	<form:form method="POST" action="/FeedTheMonster/feeding" modelAttribute="choosenMonster">
 		<form:errors path="*" cssClass="errorblock" element="div" />
 		Monster:
-			<form:select path="name">
-				<form:option value="NONE" label="--- Select ---" />
-				<form:options items="${monsterNames}" />
-			</form:select>
+            <form:select path="id" required="required">
+                <c:forEach items="${monstersList}" var="monster">
+                    <form:option value="${monster.getId()}" label="${monster.getName()}" />
+                </c:forEach>
+            </form:select>
 		<input type="submit" value="Submit"/>
-		<form:errors path="name" cssClass="error" />
+		<form:errors path="id" cssClass="error" />
 	</form:form>
 <table>
 	<tr>
