@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.validation.Valid;
 
 @Controller
 public class FTMController
@@ -42,6 +45,55 @@ public class FTMController
         ModelAndView modelAndView = new ModelAndView("startingPage", "monstersList", monsters);
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/creation", method = RequestMethod.GET)
+    public ModelAndView creation()
+    {
+        return new ModelAndView("creation", "monster", new Monster());
+    }
+
+    @RequestMapping(value = "/creation", method = RequestMethod.POST)
+    public String create(@Valid @ModelAttribute("monster") Monster monster,
+                         BindingResult result, Model model, final RedirectAttributes redirectAttributes)
+    {
+        if (! result.hasErrors())
+        {
+            entityManager = entityManagerFactory.createEntityManager();
+            String query = "from Monster where name = '" + monster.getName() + "'";
+            try
+            {
+                entityManager.createQuery(query, Monster.class).getSingleResult();
+                String message = "Monster with that name is already registered";
+                result.addError(new FieldError("monster", "name", message));
+
+            } catch (NoResultException e)
+            {
+                // Everything is OK - new entry will be unique
+            }
+            entityManager.close();
+        }
+
+        if (result.hasErrors())
+        {
+            model.addAttribute("monster", monster);
+
+            return "/creation";
+
+        }
+
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.merge(monster);
+        entityManager.getTransaction().commit();
+
+        List<Monster> monsters = entityManager.createQuery("from Monster", Monster.class).getResultList();
+        entityManager.close();
+
+        model.addAttribute("choosenMonster", new Monster());
+        model.addAttribute("monstersList", monsters);
+
+        return "/startingPage";
     }
 
     @RequestMapping(value = "/feeding", method = RequestMethod.POST)

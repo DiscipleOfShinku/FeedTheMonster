@@ -8,19 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/styles.css"/>">
 <title><c:out value="Welcome to monster zoo."/></title>
-<style>
-.error {
-	color: #ff0000;
-}
-
-.errorblock {
-	color: #000;
-	background-color: #ffEEEE;
-	border: 3px solid #ff0000;
-	padding: 8px;
-	margin: 16px;
-}
-</style>
+<style></style>
 </head>
 <body>
 
@@ -36,6 +24,9 @@ Choose monster to feed:
 		<input type="submit" value="Submit"/>
 		<form:errors path="id" cssClass="error" />
 	</form:form>
+
+<a href="/FeedTheMonster/creation">Register a new monster</a>
+
 <table>
 	<tr>
 		<th>Monster name:</th>
