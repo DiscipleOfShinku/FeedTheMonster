@@ -1,7 +1,7 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="x" uri="http://java.sun.com/jstl/xml" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -14,6 +14,7 @@
 <body>
 
   <h1>Register a new monster:</h1>
+
   <form:form method="POST" action="/FeedTheMonster/creation" modelAttribute="monster">
     <p>Name:</p>
     <form:input path="name" required="required" />

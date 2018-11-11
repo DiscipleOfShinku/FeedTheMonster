@@ -98,8 +98,7 @@ public class FTMController
 
     @RequestMapping(value = "/feeding", method = RequestMethod.POST)
     public String feeding(@ModelAttribute("choosenMonster") @Validated Select select,
-            BindingResult result, Model model,
-            final RedirectAttributes redirectAttributes)
+                          BindingResult result, Model model, final RedirectAttributes redirectAttributes)
     {
         dropDownBoxValidator.validate(select, result);
         if (result.hasErrors())
@@ -131,5 +130,4 @@ public class FTMController
             return "/feeding";
         }
     }
-
 }

@@ -11,8 +11,8 @@ public class DropDownBoxValidator implements Validator
     @Override
     public boolean supports(Class clazz)
     {
-       //just validate the Select instances
-       return Select.class.equals(clazz);
+        // just validate the Select instances
+        return Select.class.equals(clazz);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class DropDownBoxValidator implements Validator
     {
         Select select = (Select) target;
 
-        if(select.getId() < 1)
+        if (select.getId() < 1)
         {
             errors.rejectValue("id", "required.id", "[Message wasn't found.] Please, select your monster.");
         }
